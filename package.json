@@ -1,0 +1,14 @@
+{
+  "name": "cookbook",
+  "version": "1.0.0",
+  "description": "book used to store recipes",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Piotr Kubicki",
+  "license": "MIT",
+  "devDependencies": {
+    "electron-prebuilt": "^0.36.2"
+  }
+}
