@@ -1,3 +1,9 @@
-<div>
-  {{ main.test }}
+<div class="container" id="recipes-bar">
+  <h3>Recipes</h3>
+  <div class="menu-btn" ng-repeat="recipe in main.recipes track by $index">
+    <p>{{ recipe }}</p>
+  </div>
+</div>
+<div class="container" id="text-area">
+
 </div>
