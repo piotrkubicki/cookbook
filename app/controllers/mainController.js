@@ -1,11 +1,27 @@
 // contain main controller variables and functions
-angular.module('main', ['routes', 'fileService'])
+angular.module('mainScreenService', ['routes', 'fileService'])
 
-.controller('mainController', function(fileReader) {
-  var self = this;
-  // get recipes titles
-  fileReader.readFile('index.txt').then(function(res){
-    self.recipes = res.toString().split('\n');;
-  });
+.service('mainScreen', function(fileReader, $q) {
+
+  var buildMenu = function() {
+    // get recipes titles
+    var deferred = $q.defer();
+    fileReader.readFile('index.txt').then(function(res){
+      recipes = res.toString().split('\n');
+      deferred.resolve(recipes);
+    });
+    return deferred.promise;
+  }
+
+  var buildMainScreen = function() {
+    buildMenu().then(function(res) {
+      return res;
+    })
+  }
+
+  return {
+    buildMenu: buildMenu,
+    buildMainScreen: buildMainScreen
+  }
 
 });
