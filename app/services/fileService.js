@@ -12,10 +12,24 @@ angular.module('fileService', [])
 
       deferred.resolve(res);
     });
+
     return deferred.promise;
   }
 
+  var writeFile = function(fileName, text) {
+    var deferred = $q.defer();
+    fs.writeFile(path + fileName, text, function(err) {
+      if (err) deferred.reject(err.toString());
+
+      deferred.resolve('success');
+    });
+
+    return deferred.promise;
+  }
+
+
   return {
-    readFile: readFile
+    readFile: readFile,
+    writeFile: writeFile
   }
 });
