@@ -1,10 +1,20 @@
+
+
 #recipes-bar {
   width: 20%;
-  height: 100vh;
+  height: 90vh;
   border: 2px solid black;
   float: left;
   padding: 0;
   text-align: center;
+}
+
+#menu-title {
+  width: 20%;
+  height: 10vh;
+  border: 2px solid black;
+  float:left;
+  padding-left: 10px;
 }
 
 #text-area {
@@ -23,8 +33,12 @@
   text-align: right;
 }
 
-#navbar button {
-
+#instructions {
+  width: 50%;
+  height: 85vh;
+  float: right;
+  margin-top: 20px;
+  padding: 10px;
 }
 
 .menu-btn {
@@ -43,4 +57,49 @@
   word-break: break-all;
   vertical-align: middle;
   text-align: center;
+}
+
+.btn {
+  display: inline-block;
+  width: 150px;
+}
+
+.overlay {
+  position: absolute;
+  width: 20%;
+  height: 100vh;
+  z-index: 10000;
+  background: black;
+  opacity: 0.5;
+}
+
+.overlay.ng-enter, .overlay.ng-leave {
+/*-webkit-transition: all 1s linear;
+  transition: all 1s linear;*/
+  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+}
+
+.overlay.ng-enter {
+  opacity: 0;
+}
+
+.overlay.ng-enter.ng-enter-active {
+  opacity: 0.5;
+}
+
+.overlay.ng-leave.ng-leave-active {
+  opacity: 0;
+}
+
+.overlay.ng-leave {
+  opacity: 0.5;
+}
+
+input {
+  width: 150px;
+  height: 35px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  padding: 5px;
 }

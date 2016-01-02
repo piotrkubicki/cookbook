@@ -27,9 +27,21 @@ angular.module('fileService', [])
     return deferred.promise;
   }
 
+  var appendFile = function(fileName, text) {
+    var deferred = $q.defer();
+    fs.appendFile(path + fileName, text, function(err) {
+      if (err) deferred.reject(err.toString());
+
+      deferred.resolve('success');
+    });
+
+    return deferred.promise;
+  }
+
 
   return {
     readFile: readFile,
-    writeFile: writeFile
+    writeFile: writeFile,
+    appendFile: appendFile
   }
 });
