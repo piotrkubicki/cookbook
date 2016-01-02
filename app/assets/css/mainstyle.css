@@ -9,9 +9,22 @@
 
 #text-area {
   width: 80%;
-  height: 100vh;
+  height: 90vh;
   border: 2px solid black;
   float:left;
+}
+
+#navbar {
+  width: 80%;
+  height: 10vh;
+  float:left;
+  border: 2px solid black;
+  padding-top: 2vh;
+  text-align: right;
+}
+
+#navbar button {
+
 }
 
 .menu-btn {

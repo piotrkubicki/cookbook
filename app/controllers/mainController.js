@@ -3,7 +3,7 @@ angular.module('main', ['routes', 'fileService'])
 
 .controller('mainController', function(fileReader) {
   var self = this;
-
+  self.showRecipe = true;
   // used to retrive all recipes titles from index.txt file
   var getRecipesTitles = function() {
     // get recipes titles
@@ -24,6 +24,10 @@ angular.module('main', ['routes', 'fileService'])
     }, function(reason) {
       console.log(reason);
     });
+  }
+
+  self.addRecipe = function() {
+    self.showRecipe = !self.showRecipe
   }
 
   // MAIN

@@ -4,6 +4,15 @@
     <p>{{ recipe }}</p>
   </button>
 </div>
-<div class="container" id="text-area">
+
+<div class="container" id="navbar">
+  <button class="btn btn-default" ng-click="main.addRecipe()">Add recipe</button>
+</div>
+
+<div class="container" id="text-area" ng-if="main.showRecipe">
   <p>{{ main.recipe }}</p>
+</div>
+
+<div class="container" id="text-area" ng-if="!main.showRecipe">
+  <input type="text" name="title">
 </div>
