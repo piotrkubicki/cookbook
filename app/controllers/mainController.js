@@ -4,9 +4,9 @@ String.prototype.clean = function() {
   return this.replace(/\n$/gm, '');
 };
 
-angular.module('main', ['routes', 'fileService', 'ngAnimate'])
+angular.module('main', ['routes', 'fileService', 'ngAnimate', 'ngMaterial'])
 
-.controller('mainController', function(fileReader) {
+.controller('mainController', function(fileReader, $mdDialog) {
   var self = this;
   self.recipes = [];
   self.showRecipe = true;
@@ -29,7 +29,7 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate'])
       }
       console.log(self.recipes);
     }, function(reason) {
-      console.log(reason);
+      errorDialog('Error', 'index.txt not found', 'error label', 'OK');
     });
   }
 
@@ -53,7 +53,7 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate'])
         }
       }
     }, function(reason) {
-      console.log(reason);
+      errorDialog('Error', reason, 'error', 'OK');
     });
   }
 
@@ -97,7 +97,11 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate'])
         console.log(res);
         getRecipesTitles();
         self.showRecipe = true;
+      }, function(reason) {
+        errorDialog('Error', reason, 'error', 'OK');
       });
+    }, function(reason) {
+      errorDialog('Error', reason, 'error', 'OK');
     });
   }
 
@@ -117,8 +121,9 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate'])
     fileReader.writeFile(self.recipe.name + '.txt', temp).then(function(res) {
       getRecipesTitles();
       self.changeRecipe();
+    }, function(reason) {
+      errorDialog('Error', reason, 'error', 'OK');
     });
-
   }
 
   self.removeRecipe = function(fileName) {
@@ -132,16 +137,27 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate'])
           self.recipe = [];
           getRecipesTitles();
         }, function(reason) {
-          console.log(reason);
+          errorDialog('Error', reason, 'error', 'OK');
         });
       }, function(reason) {
-        console.log(reason);
+        errorDialog('Error', reason, 'error', 'OK');
       });
     }, function(reason) {
-      console.log(reason);
+      errorDialog('Error', reason, 'error', 'OK');
     });
   }
 
+  // display error dialog
+  var errorDialog = function(errorTile, errorMessage, errorLabel, buttonMsg) {
+    $mdDialog.show(
+      $mdDialog.alert()
+        .clickOutsideToClose(true)
+        .title(errorTile)
+        .textContent(errorMessage)
+        .ariaLabel(errorLabel)
+        .ok(buttonMsg)
+    );
+  }
   // MAIN
   getRecipesTitles();
 });
