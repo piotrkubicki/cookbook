@@ -1,5 +1,3 @@
-
-
 #recipes-bar {
   width: 20%;
   height: 90vh;
@@ -17,13 +15,6 @@
   padding-left: 10px;
 }
 
-#text-area {
-  width: 80%;
-  height: 90vh;
-  border: 2px solid black;
-  float:left;
-}
-
 #navbar {
   width: 80%;
   height: 10vh;
@@ -35,10 +26,18 @@
 
 #instructions {
   width: 50%;
-  height: 85vh;
+  height: 82vh;
   float: right;
   margin-top: 20px;
   padding: 10px;
+}
+
+.text-area {
+  width: 80%;
+  height: 90vh;
+  border: 2px solid black;
+  padding: 20px;
+  float:left;
 }
 
 .menu-btn {

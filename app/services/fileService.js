@@ -38,10 +38,21 @@ angular.module('fileService', [])
     return deferred.promise;
   }
 
+  var removeFile = function(fileName) {
+    var deferred =  $q.defer();
+    fs.unlink(path + fileName, function(err) {
+      if (err) deferred.reject(err);
+
+      deferred.resolve('success');
+    });
+
+    return deferred.promise;
+  }
 
   return {
     readFile: readFile,
     writeFile: writeFile,
-    appendFile: appendFile
+    appendFile: appendFile,
+    removeFile: removeFile
   }
 });

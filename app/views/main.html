@@ -13,11 +13,18 @@
   </button>
 </div>
 
-<div class="container" id="text-area" ng-if="main.showRecipe">
-  <p>{{ main.recipe }}</p>
+<div class="container text-area" ng-if="main.showRecipe">
+  <div id="ingridients">
+    <h4><strong>{{ main.recipe.name }}</strong></h4>
+    <h4>Ingridients</h4>
+    <div ng-repeat="ingridient in main.recipe.ingridients track by $index">
+      <p>{{ ingridient }}</p>
+    </div>
+    <button class="btn btn-danger" ng-click="main.removeRecipe(main.recipe.name)">Remove</button>
+  </div>
 </div>
 
-<div class="container" id="text-area" ng-if="!main.showRecipe">
+<div class="container text-area" ng-if="!main.showRecipe">
   <textarea id="instructions" placeholder="Instructions"></textarea>
   <h4>Name</h4>
   <input type="text" style="width: 300px" ng-model="main.title">

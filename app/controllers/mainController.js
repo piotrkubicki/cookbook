@@ -1,4 +1,9 @@
 // contain main controller variables and functions
+String.prototype.clean = function() {
+  //return this.replace(/^\n+|\n+$/g, '');
+  return this.replace(/\n$/gm, '');
+};
+
 angular.module('main', ['routes', 'fileService', 'ngAnimate'])
 
 .controller('mainController', function(fileReader) {
@@ -12,12 +17,13 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate'])
     // get recipes titles
     fileReader.readFile('index.txt').then(function(res) {
       var temp = res.toString().split('\n');
+      self.recipes = [];
       for (var i = 0; i < temp.length; i++) {
         if (temp[i] != '') {
           self.recipes.push(temp[i]);
         }
       }
-
+      console.log(self.recipes);
     }, function(reason) {
       console.log(reason);
     });
@@ -25,11 +31,18 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate'])
 
   // used to retrive whole recipe
   self.getRecipe = function(recipe) {
-    var recipe = recipe.replace('\n', '').trim(0, -1) + '.txt';
-
-    console.log(recipe[recipe.length - 1]);
-    fileReader.readFile(recipe).then(function(res) {
-      self.recipe = res.toString();
+    var temp = recipe.replace('\n', '').trim(0, -1) + '.txt';
+    fileReader.readFile(temp).then(function(res) {
+      var temp = res.toString().split('\n');
+      self.recipe = {
+        name: recipe,
+        ingridients: []
+      };
+      for (var i = 0; i < temp.length; i++) {
+        if (temp[i] != '') {
+          self.recipe.ingridients.push(temp[i]);
+        }
+      }
     }, function(reason) {
       console.log(reason);
     });
@@ -62,7 +75,7 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate'])
       var temp = '';
       for (var i = 0; i < self.ingridients.length; i++) {
         if (self.ingridients[i].name != '' && self.ingridients[i].value != ''){
-          temp += self.ingridients[i].name + self.ingridients[i].value + '\n';
+          temp += self.ingridients[i].name + ' ' + self.ingridients[i].value + '\n';
         }
       }
 
@@ -71,6 +84,26 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate'])
         getRecipesTitles();
         self.showRecipe = true;
       });
+    });
+  }
+
+  self.removeRecipe = function(fileName) {
+    fileReader.removeFile(fileName + '.txt').then(function(res) {
+      fileReader.readFile('index.txt').then(function(data) {
+        var temp = data.toString();
+        temp = temp.replace(fileName, '');
+
+        temp = temp.clean();
+        fileReader.writeFile('index.txt', temp).then(function(result) {
+          getRecipesTitles();
+        }, function(reason) {
+          console.log(reason);
+        });
+      }, function(reason) {
+        console.log(reason);
+      });
+    }, function(reason) {
+      console.log(reason);
     });
   }
 
