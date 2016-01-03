@@ -1,8 +1,1 @@
-jajko 2
-kielbasa 1
-maslo 10dag
-szczypior szczypta
-mleczko lyzeczka
-sol ociupinka
-pieprz ociupulka
-chlebus kromeczka
+jajko 2 kielbasa 1 maslo 10dag szczypior szczypta mleczko lyzeczka sol ociupinka pieprz ociupulka chlebus kromeczka

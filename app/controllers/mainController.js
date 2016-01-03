@@ -10,7 +10,11 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate'])
   var self = this;
   self.recipes = [];
   self.showRecipe = true;
-  self.ingridients = [];
+  self.showUpdateRecipe = false;
+  self.recipe = {
+    ingridients: []
+  }
+
   self.title;
   // used to retrive all recipes titles from index.txt file
   var getRecipesTitles = function() {
@@ -33,14 +37,19 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate'])
   self.getRecipe = function(recipe) {
     var temp = recipe.replace('\n', '').trim(0, -1) + '.txt';
     fileReader.readFile(temp).then(function(res) {
-      var temp = res.toString().split('\n');
+      var temp = res.toString().split(' ');
+
       self.recipe = {
         name: recipe,
         ingridients: []
       };
-      for (var i = 0; i < temp.length; i++) {
+      for (var i = 0; i < temp.length; i += 2) {
         if (temp[i] != '') {
-          self.recipe.ingridients.push(temp[i]);
+          var ingridient = {
+            name: temp[i],
+            value: temp[i + 1]
+          }
+          self.recipe.ingridients.push(ingridient);
         }
       }
     }, function(reason) {
@@ -54,15 +63,20 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate'])
     self.showRecipe = !self.showRecipe;
   }
 
+  self.changeRecipe = function() {
+    self.showUpdateRecipe = !self.showUpdateRecipe;
+    self.addRecipe();
+  }
+
   self.addIngridient = function() {
-    self.ingridients.push({
+    self.recipe.ingridients.push({
       name: '',
       value: ''
     });
   }
 
   self.removeIngridient = function(item) {
-    self.ingridients.splice(item, 1);
+    self.recipe.ingridients.splice(item, 1);
   }
 
   self.saveRecipe = function() {
@@ -73,9 +87,9 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate'])
 
     fileReader.appendFile('index.txt', '\n' + self.title).then(function(res) {
       var temp = '';
-      for (var i = 0; i < self.ingridients.length; i++) {
-        if (self.ingridients[i].name != '' && self.ingridients[i].value != ''){
-          temp += self.ingridients[i].name + ' ' + self.ingridients[i].value + '\n';
+      for (var i = 0; i < self.recipe.ingridients.length; i++) {
+        if (self.recipe.ingridients[i].name != '' && self.recipe.ingridients[i].value != ''){
+          temp += self.recipe.ingridients[i].name + ' ' + self.recipe.ingridients[i].value + ' ';
         }
       }
 
@@ -87,6 +101,26 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate'])
     });
   }
 
+  self.updateRecipe = function() {
+    if (self.recipe.name === '') {
+      self.showRecipe = true;
+      return;
+    }
+
+    var temp = '';
+    for (var i = 0; i < self.recipe.ingridients.length; i++) {
+      if (self.recipe.ingridients[i].name != '' && self.recipe.ingridients[i].value != ''){
+        temp += self.recipe.ingridients[i].name + ' ' + self.recipe.ingridients[i].value + ' ';
+      }
+    }
+
+    fileReader.writeFile(self.recipe.name + '.txt', temp).then(function(res) {
+      getRecipesTitles();
+      self.changeRecipe();
+    });
+
+  }
+
   self.removeRecipe = function(fileName) {
     fileReader.removeFile(fileName + '.txt').then(function(res) {
       fileReader.readFile('index.txt').then(function(data) {
@@ -95,6 +129,7 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate'])
 
         temp = temp.clean();
         fileReader.writeFile('index.txt', temp).then(function(result) {
+          self.recipe = [];
           getRecipesTitles();
         }, function(reason) {
           console.log(reason);
