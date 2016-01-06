@@ -8,8 +8,8 @@
 </div>
 
 <div class="container" id="recipes-bar">
-  <button class="menu-btn" ng-repeat="recipe in main.recipes track by $index" ng-click="main.getRecipe(recipe)">
-    <p>{{ recipe }}</p>
+  <button class="menu-btn" ng-repeat="recipe in main.recipes track by $index" ng-click="main.getRecipe($index)">
+    <p>{{ recipe.name }}</p>
   </button>
 </div>
 
@@ -23,7 +23,7 @@
     <div ng-repeat="ingridient in main.recipe.ingridients track by $index">
       <p>{{ ingridient.name }} {{ ingridient.value }}</p>
     </div>
-    <button class="btn btn-danger" ng-click="main.removeRecipe(main.recipe.name)">Remove</button>
+    <button class="btn btn-danger" ng-click="main.removeRecipe(main.recipe)">Remove</button>
     <button class="btn btn-prime" ng-click="main.changeRecipe()">Change</button>
   </div>
 </div>
@@ -31,7 +31,7 @@
 <div class="container text-area" ng-if="!main.showRecipe && !main.showUpdateRecipe">
   <textarea id="instructions" placeholder="Instructions"></textarea>
   <h4>Name</h4>
-  <input type="text" style="width: 300px" ng-model="main.title">
+  <input type="text" style="width: 300px" ng-model="main.recipe.name">
   <h4>Ingridients</h4>
   <div ng-repeat="ing in main.recipe.ingridients">
     <input type="text" placeholder="Name" ng-model="ing.name">
@@ -51,5 +51,6 @@
     <input type="text" ng-model="ing.value">
     <button class="btn btn-danger" style="width: 50px; height: 35px;" ng-click="main.removeIngridient($index)"><span class="glyphicon glyphicon-remove"></span></button>
   </div>
+  <button class="btn btn-default" ng-click="main.addIngridient()">Add Ingridient</button>
   <button class="btn btn-success" ng-click="main.updateRecipe()">Update</button>
 </div>
