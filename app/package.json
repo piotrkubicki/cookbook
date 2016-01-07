@@ -6,6 +6,10 @@
   "scripts": {
     "start": "electron app"
   },
+  "respository": {
+    "type": "git",
+    "url": "https://github.com/pztudent/cookbook"
+  },
   "author": "Piotr Kubicki",
   "license": "MIT"
 }

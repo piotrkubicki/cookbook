@@ -1,9 +1,4 @@
 // contain main controller variables and functions
-String.prototype.clean = function() {
-  //return this.replace(/^\n+|\n+$/g, '');
-  return this.replace(/\n$/gm, '');
-};
-
 String.prototype.capitalize = function() {
   return this.charAt(0).toUpperCase() + this.slice(1);
 };
@@ -35,7 +30,7 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate', 'ngMaterial'])
   }
 
   self.addRecipe = function() {
-    self.showRecipe = false;
+    self.showRecipe = !self.showRecipe;
 
     self.recipe = {
       name: '',
@@ -82,6 +77,13 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate', 'ngMaterial'])
       });*/
       errorDialog('No ingridients added', 'Recipe must have at least one ingridient!', 'error', 'OK');
       return;
+    }
+
+
+    // capitalize first characters
+    self.recipe.name = self.recipe.name.capitalize();
+    for (var i = 0; i < self.recipe.ingridients.length; i++) {
+      self.recipe.ingridients[i].name = self.recipe.ingridients[i].name.capitalize();
     }
 
     for (var i = 0; i < self.recipes.length; i++) {
