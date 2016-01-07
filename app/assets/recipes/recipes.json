@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "name": "Test",
+    "ingridients": [
+      {
+        "name": "Dddds",
+        "value": "2"
+      }
+    ],
+    "description": "sdasdsadasd"
+  }
+]

@@ -79,7 +79,6 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate', 'ngMaterial'])
       return;
     }
 
-
     // capitalize first characters
     self.recipe.name = self.recipe.name.capitalize();
     for (var i = 0; i < self.recipe.ingridients.length; i++) {

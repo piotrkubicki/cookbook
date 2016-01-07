@@ -1,14 +1,14 @@
 <div class="overlay" id="overlay" ng-if="!main.showRecipe"></div>
-<div class="container" id="menu-title"><h3>Recipes</h3></div>
+<div class="container" id="menu-title"><h2>Recipes</h2></div>
 
 <div class="container" id="navbar">
-  <h2 style="float: left">Cookbook</h2>
+  <h1 style="float: left"><strong>Cookbook</strong></h1>
   <button class="btn btn-success" ng-click="main.addRecipe()" ng-if="main.showRecipe && !main.showUpdateRecipe">Add recipe</button>
   <button class="btn btn-danger" ng-click="main.addRecipe()" ng-if="!main.showRecipe && !main.showUpdateRecipe">Cancel</button>
 </div>
 
 <div class="container" id="recipes-bar">
-  <button class="menu-btn" ng-repeat="recipe in main.recipes track by $index" ng-click="main.getRecipe($index)">
+  <button class="menu-btn" ng-repeat="recipe in main.recipes track by $index" ng-class="{oddButton: $odd, evenButton: $even}" ng-click="main.getRecipe($index)">
     <p>{{ recipe.name }}</p>
   </button>
 </div>
@@ -29,8 +29,8 @@
 </div>
 
 <div class="container text-area" ng-if="!main.showRecipe && !main.showUpdateRecipe">
-  <textarea id="instructions" placeholder="Instructions"></textarea>
-  <h4>Name</h4>
+  <textarea id="instructions" placeholder="Instructions" ng-model="main.recipe.description"></textarea>
+  <h3>Name</h3>
   <input type="text" style="width: 40%" ng-model="main.recipe.name">
   <h4>Ingridients</h4>
   <div id="ingridients" ng-repeat="ing in main.recipe.ingridients">
@@ -40,7 +40,7 @@
   </div>
   <button class="btn btn-default" ng-click="main.addIngridient()">Add Ingridient</button>
   <br>
-  <button class="btn btn-primary" style="margin-top: 5px; float: left" ng-click="main.saveRecipe()">Save Recipe</button>
+  <button class="btn btn-success" style="margin-top: 5px; float: left" ng-click="main.saveRecipe()">Save Recipe</button>
 </div>
 
 <div class="container text-area" ng-if="!main.showRecipe && main.showUpdateRecipe">
