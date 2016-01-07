@@ -7,8 +7,5 @@
     "start": "electron app"
   },
   "author": "Piotr Kubicki",
-  "license": "MIT",
-  "devDependencies": {
-    "electron-prebuilt": "^0.36.2"
-  }
+  "license": "MIT"
 }

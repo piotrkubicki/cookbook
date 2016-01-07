@@ -32,6 +32,10 @@
   padding: 10px;
 }
 
+#ingridients input {
+  width: 20%;
+}
+
 .text-area {
   width: 80%;
   height: 90vh;

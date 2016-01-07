@@ -31,9 +31,9 @@
 <div class="container text-area" ng-if="!main.showRecipe && !main.showUpdateRecipe">
   <textarea id="instructions" placeholder="Instructions"></textarea>
   <h4>Name</h4>
-  <input type="text" style="width: 300px" ng-model="main.recipe.name">
+  <input type="text" style="width: 40%" ng-model="main.recipe.name">
   <h4>Ingridients</h4>
-  <div ng-repeat="ing in main.recipe.ingridients">
+  <div id="ingridients" ng-repeat="ing in main.recipe.ingridients">
     <input type="text" placeholder="Name" ng-model="ing.name">
     <input type="text" placeholder="Amount" ng-model="ing.value">
     <button class="btn btn-danger" style="width: 50px; height: 35px;" ng-click="main.removeIngridient($index)"><span class="glyphicon glyphicon-remove"></span></button>
