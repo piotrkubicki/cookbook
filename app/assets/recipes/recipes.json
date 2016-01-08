@@ -1,24 +1,47 @@
 [
   {
-    "name": "Test",
+    "name": "Omlet",
     "ingridients": [
       {
-        "name": "Dddds",
-        "value": "2"
-      }
-    ],
-    "description": "sdasdsadasd"
-  },
-  {
-    "name": "Test2",
-    "ingridients": [
-      {
-        "name": "Sdsd",
+        "name": "Jajka",
         "value": "2"
       },
       {
-        "name": "Dfgdg",
-        "value": "45"
+        "name": "Mleko",
+        "value": "10ml"
+      },
+      {
+        "name": "Sol",
+        "value": "szczypta"
+      },
+      {
+        "name": "Pieprz",
+        "value": "szczypta"
+      }
+    ]
+  },
+  {
+    "name": "Jajecznica",
+    "ingridients": [
+      {
+        "name": "Jajka",
+        "value": "2szt"
+      },
+      {
+        "name": "Sol",
+        "value": "szczypta"
+      },
+      {
+        "name": "Pieprz",
+        "value": "2 szczypty"
+      },
+      {
+        "name": "Cebula",
+        "value": "100g"
+      },
+      {
+        "name": "Kielbasa",
+        "value": "200g"
       }
     ]
   }

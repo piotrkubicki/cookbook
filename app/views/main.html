@@ -1,8 +1,8 @@
 <div class="overlay" id="overlay" ng-if="!main.showRecipe"></div>
-<div class="container" id="menu-title"><h3>Recipes</h3></div>
+<div class="container" id="menu-title"><h1>Recipes</h1></div>
 
 <div class="container" id="navbar">
-  <h2 style="float: left">Cookbook</h2>
+  <h1 style="float: left"><strong>Cookbook</strong></h1>
   <button class="btn btn-success" ng-click="main.addRecipe()" ng-if="main.showRecipe && !main.showUpdateRecipe">Add recipe</button>
   <button class="btn btn-danger" ng-click="main.addRecipe()" ng-if="!main.showRecipe && !main.showUpdateRecipe">Cancel</button>
 </div>
@@ -20,13 +20,16 @@
         <h3>Welcome to Cookbook.<br>Please select any recipe to display</h2>
       </div>
       <div id="ingridients" ng-if="main.recipe.name">
-        <h4><strong>{{ main.recipe.name }}</strong></h4>
+        <h2><strong>{{ main.recipe.name }}</strong></h2>
         <h4>Ingridients</h4>
         <div ng-repeat="ingridient in main.recipe.ingridients track by $index">
           <p>{{ ingridient.name }} {{ ingridient.value }}</p>
         </div>
+        <button class="btn btn-default" ng-click="main.addDiner()">Add to List</button>
+        <br>
+        <button class="btn btn-success" ng-click="main.changeRecipe()">Change</button>
+        <br>
         <button class="btn btn-danger" ng-click="main.removeRecipe(main.recipe)">Remove</button>
-        <button class="btn btn-prime" ng-click="main.changeRecipe()">Change</button>
       </div>
     </div>
 
@@ -56,20 +59,19 @@
       <button class="btn btn-default" ng-click="main.addIngridient()">Add Ingridient</button>
       <button class="btn btn-success" ng-click="main.updateRecipe()">Update</button>
     </div>
-
   </md-tab>
 
   <md-tab label="Menu">
-    <div>
-      <p>sdasdasd</p>
+    <div class="container">
+      <div id="dinner" ng-repeat="dinner in main.menu track by $index">{{ dinner.name }}</div>
     </div>
   </md-tab>
 
   <md-tab label="Shopping List">
-
-  </md-tab>cd
-
-
-
-</m
-d-tabs>
+    <div class="container">
+      <div ng-repeat="ingridient in main.shoppingList track by $index">
+        {{ ingridient.name }}<span ng-repeat="value in ingridient.values track by $index"> {{ value }}</span> 
+      </div>
+    </div>
+  </md-tab>
+</md-tabs>

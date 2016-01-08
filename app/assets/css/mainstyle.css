@@ -39,6 +39,10 @@
   width: 20%;
 }
 
+#ingridients button {
+  margin-top: 10px;
+}
+
 .text-area {
   width: 80%;
   height: 90vh;
@@ -103,7 +107,7 @@
 }
 
 .oddButton {
-  background-color: #3c92c2;
+  background-color: #709e72;
 }
 
 .evenButton {

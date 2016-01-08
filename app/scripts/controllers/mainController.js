@@ -13,7 +13,7 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate', 'ngMaterial'])
   self.showUpdateRecipe = false;
   self.recipes = [];
   self.menu = [];
-  self.tabIndex = 0;
+  self.shoppingList = [];
 
   // used to retrive all recipes titles from index.txt file
   var getRecipesTitles = function() {
@@ -133,7 +133,25 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate', 'ngMaterial'])
 
   self.addDiner = function() {
     self.menu.push(self.recipe);
-    console.log(self.menu);
+
+    // check if ingridient exists
+    for (var i = 0; i < self.recipe.ingridients.length; i++) {
+      var exists = false; // true if ingridient already exists in shoppingList.values array
+        for (var j = 0; j < self.shoppingList.length; j++) {
+          if (self.shoppingList[j].name == self.recipe.ingridients[i].name) {
+            exists = true;
+            self.shoppingList[j].values.push(self.recipe.ingridients[i].value);
+          }
+        }
+        if (!exists) { // add ingridient if name not duplacated in shoppingList array
+          self.shoppingList.push({
+            name: self.recipe.ingridients[i].name,
+            values: [
+              self.recipe.ingridients[i].value
+            ]
+          });
+        }
+    }
   }
 
   // display error dialog
