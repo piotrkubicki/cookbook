@@ -1,56 +1,75 @@
 <div class="overlay" id="overlay" ng-if="!main.showRecipe"></div>
-<div class="container" id="menu-title"><h2>Recipes</h2></div>
+<div class="container" id="menu-title"><h3>Recipes</h3></div>
 
 <div class="container" id="navbar">
-  <h1 style="float: left"><strong>Cookbook</strong></h1>
+  <h2 style="float: left">Cookbook</h2>
   <button class="btn btn-success" ng-click="main.addRecipe()" ng-if="main.showRecipe && !main.showUpdateRecipe">Add recipe</button>
   <button class="btn btn-danger" ng-click="main.addRecipe()" ng-if="!main.showRecipe && !main.showUpdateRecipe">Cancel</button>
 </div>
 
 <div class="container" id="recipes-bar">
-  <button class="menu-btn" ng-repeat="recipe in main.recipes track by $index" ng-class="{oddButton: $odd, evenButton: $even}" ng-click="main.getRecipe($index)">
+  <button class="menu-btn" ng-repeat="recipe in main.recipes track by $index"  ng-class="{oddButton: $odd, evenButton: $even}" ng-click="main.getRecipe($index)">
     <p>{{ recipe.name }}</p>
   </button>
 </div>
 
-<div class="container text-area" ng-if="main.showRecipe && !main.showUpdateRecipe">
-  <div ng-if="!main.recipe.name">
-    <h3>Welcome to Cookbook.<br>Please select any recipe to display</h2>
-  </div>
-  <div id="ingridients" ng-if="main.recipe.name">
-    <h4><strong>{{ main.recipe.name }}</strong></h4>
-    <h4>Ingridients</h4>
-    <div ng-repeat="ingridient in main.recipe.ingridients track by $index">
-      <p>{{ ingridient.name }} {{ ingridient.value }}</p>
+<md-tabs class="text-area" md-center-tabs md-border-bottom>
+  <md-tab label="Recipe">
+    <div class="container" ng-if="main.showRecipe && !main.showUpdateRecipe">
+      <div ng-if="!main.recipe.name">
+        <h3>Welcome to Cookbook.<br>Please select any recipe to display</h2>
+      </div>
+      <div id="ingridients" ng-if="main.recipe.name">
+        <h4><strong>{{ main.recipe.name }}</strong></h4>
+        <h4>Ingridients</h4>
+        <div ng-repeat="ingridient in main.recipe.ingridients track by $index">
+          <p>{{ ingridient.name }} {{ ingridient.value }}</p>
+        </div>
+        <button class="btn btn-danger" ng-click="main.removeRecipe(main.recipe)">Remove</button>
+        <button class="btn btn-prime" ng-click="main.changeRecipe()">Change</button>
+      </div>
     </div>
-    <button class="btn btn-danger" ng-click="main.removeRecipe(main.recipe)">Remove</button>
-    <button class="btn btn-prime" ng-click="main.changeRecipe()">Change</button>
-  </div>
-</div>
 
-<div class="container text-area" ng-if="!main.showRecipe && !main.showUpdateRecipe">
-  <textarea id="instructions" placeholder="Instructions" ng-model="main.recipe.description"></textarea>
-  <h3>Name</h3>
-  <input type="text" style="width: 40%" ng-model="main.recipe.name">
-  <h4>Ingridients</h4>
-  <div id="ingridients" ng-repeat="ing in main.recipe.ingridients">
-    <input type="text" placeholder="Name" ng-model="ing.name">
-    <input type="text" placeholder="Amount" ng-model="ing.value">
-    <button class="btn btn-danger" style="width: 50px; height: 35px;" ng-click="main.removeIngridient($index)"><span class="glyphicon glyphicon-remove"></span></button>
-  </div>
-  <button class="btn btn-default" ng-click="main.addIngridient()">Add Ingridient</button>
-  <br>
-  <button class="btn btn-success" style="margin-top: 5px; float: left" ng-click="main.saveRecipe()">Save Recipe</button>
-</div>
+    <div class="container" ng-if="!main.showRecipe && !main.showUpdateRecipe">
+      <textarea id="instructions" placeholder="Instructions"></textarea>
+      <h4>Name</h4>
+      <input type="text" style="width: 40%" ng-model="main.recipe.name">
+      <h4>Ingridients</h4>
+      <div id="ingridients" ng-repeat="ing in main.recipe.ingridients">
+        <input type="text" placeholder="Name" ng-model="ing.name">
+        <input type="text" placeholder="Amount" ng-model="ing.value">
+        <button class="btn btn-danger" style="width: 50px; height: 35px;" ng-click="main.removeIngridient($index)"><span class="glyphicon glyphicon-remove"></span></button>
+      </div>
+      <button class="btn btn-default" ng-click="main.addIngridient()">Add Ingridient</button>
+      <br>
+      <button class="btn btn-primary" style="margin-top: 5px; float: left" ng-click="main.saveRecipe()">Save Recipe</button>
+    </div>
 
-<div class="container text-area" ng-if="!main.showRecipe && main.showUpdateRecipe">
-  <h4>Name</h4>
-  <input type="text" style="width: 300px" ng-model="main.recipe.name">
-  <div ng-repeat="ing in main.recipe.ingridients">
-    <input type="text" ng-model="ing.name">
-    <input type="text" ng-model="ing.value">
-    <button class="btn btn-danger" style="width: 50px; height: 35px;" ng-click="main.removeIngridient($index)"><span class="glyphicon glyphicon-remove"></span></button>
-  </div>
-  <button class="btn btn-default" ng-click="main.addIngridient()">Add Ingridient</button>
-  <button class="btn btn-success" ng-click="main.updateRecipe()">Update</button>
-</div>
+    <div class="container" ng-if="!main.showRecipe && main.showUpdateRecipe">
+      <h4>Name</h4>
+      <input type="text" style="width: 300px" ng-model="main.recipe.name">
+      <div ng-repeat="ing in main.recipe.ingridients">
+        <input type="text" ng-model="ing.name">
+        <input type="text" ng-model="ing.value">
+        <button class="btn btn-danger" style="width: 50px; height: 35px;" ng-click="main.removeIngridient($index)"><span class="glyphicon glyphicon-remove"></span></button>
+      </div>
+      <button class="btn btn-default" ng-click="main.addIngridient()">Add Ingridient</button>
+      <button class="btn btn-success" ng-click="main.updateRecipe()">Update</button>
+    </div>
+
+  </md-tab>
+
+  <md-tab label="Menu">
+    <div>
+      <p>sdasdasd</p>
+    </div>
+  </md-tab>
+
+  <md-tab label="Shopping List">
+
+  </md-tab>cd
+
+
+
+</m
+d-tabs>

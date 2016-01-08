@@ -12,6 +12,8 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate', 'ngMaterial'])
   self.showRecipe = true;
   self.showUpdateRecipe = false;
   self.recipes = [];
+  self.menu = [];
+  self.tabIndex = 0;
 
   // used to retrive all recipes titles from index.txt file
   var getRecipesTitles = function() {
@@ -129,6 +131,11 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate', 'ngMaterial'])
     });
   }
 
+  self.addDiner = function() {
+    self.menu.push(self.recipe);
+    console.log(self.menu);
+  }
+
   // display error dialog
   var errorDialog = function(errorTile, errorMessage, errorLabel, buttonMsg) {
     $mdDialog.show(
@@ -143,4 +150,12 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate', 'ngMaterial'])
 
   // MAIN
   getRecipesTitles();
+})
+
+.config(function($mdThemingProvider) {
+    $mdThemingProvider.theme('myTheme')
+        .primaryPalette('blue')
+        .accentPalette('lime')
+        .warnPalette('red');
+    $mdThemingProvider.setDefaultTheme('myTheme');
 });

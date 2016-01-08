@@ -8,5 +8,18 @@
       }
     ],
     "description": "sdasdsadasd"
+  },
+  {
+    "name": "Test2",
+    "ingridients": [
+      {
+        "name": "Sdsd",
+        "value": "2"
+      },
+      {
+        "name": "Dfgdg",
+        "value": "45"
+      }
+    ]
   }
 ]
