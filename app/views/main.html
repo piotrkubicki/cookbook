@@ -41,21 +41,23 @@
     </div>
 
     <div class="container" ng-if="!main.showRecipe && !main.showUpdateRecipe">
-      <md-input-container class="md-block" style="margin-top: 30px" flex-gt-xs>
-        <label>Recipe Name</label>
-        <input type="text" style="width: 40%" ng-model="main.recipe.name">
-      </md-input-container>
-      <h4>Ingridients</h4>
-      <div layout-gt-sm="row" style="width: 40%" ng-repeat="ing in main.recipe.ingridients">
-        <md-input-container class="md-block" style="width: 40%" flex-gt-xs>
-          <label>Ingridient</label>
-          <input ng-model="ing.name">
+      <form>
+        <md-input-container class="md-block" style="margin-top: 30px" flex-gt-xs>
+          <label>Recipe Name</label>
+          <input type="text" style="width: 40%" ng-model="main.recipe.name">
         </md-input-container>
-        <md-input-container class="md-block" flex-gt-xs>
-          <label>Value</label>
-          <input ng-model="ing.value">
-        </md-input-container>
-        <md-button class="md-warn" style="width: 50px; height: 35px;" aria-label="removeIng" ng-click="main.removeIngridient($index)"><span class="glyphicon glyphicon-remove"></span></md-button>
+        <h4>Ingridients</h4>
+        <div layout-gt-sm="row" style="width: 40%" ng-repeat="ing in main.recipe.ingridients">
+          <md-input-container class="md-block" style="width: 40%" flex-gt-xs  move-to-next>
+            <label>Ingridient</label>
+            <input ng-model="ing.name">
+          </md-input-container>
+          <md-input-container class="md-block" flex-gt-xs move-to-next>
+            <label>Value</label>
+            <input ng-model="ing.value">
+          </md-input-container>
+        </form>
+        <md-button class="md-warn" style="width: 50px; height: 35px;" aria-label="removeIng" ng-click="main.removeIngridient($index)" move-to-next><span class="glyphicon glyphicon-remove"></span></md-button>
       </div>
       <md-button class="btn-raised" ng-click="main.addIngridient()">Add Ingridient</md-button>
       <br>

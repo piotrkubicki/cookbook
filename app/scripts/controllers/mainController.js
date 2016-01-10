@@ -16,8 +16,18 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate', 'ngMaterial'])
   self.menu = [];
   self.shoppingList = [];
   self.recipeFilter;
+
   self.returnToRecipes = function() {
     self.tabIndex = 0;
+  }
+
+  self.enterPressed = function(key) {
+    //console.log(key);
+  //  var source = key.srcElement.labels[0].innerText;
+  //  console.log(source);
+    //if (key.keyCode == 13 && source == 'Ingridient') {
+    //  self.addIngridient();
+    //}
   }
   // used to retrive all recipes titles from index.txt file
   var getRecipesTitles = function() {
@@ -40,6 +50,8 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate', 'ngMaterial'])
   self.addRecipe = function() {
     self.showRecipe = !self.showRecipe;
     self.overlay = !self.overlay;
+
+    self.returnToRecipes();
 
     self.recipe = {
       name: '',
@@ -193,7 +205,6 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate', 'ngMaterial'])
         .ok(buttonMsg)
     );
   }
-
   // MAIN
   getRecipesTitles();
 })
@@ -205,4 +216,26 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate', 'ngMaterial'])
         .accentPalette('lime')
         .warnPalette('red');
     $mdThemingProvider.setDefaultTheme('myTheme');
-});
+})
+
+// move to next inputfield
+.directive('moveToNext', function () {
+  return {
+    restrict: 'A',
+    link: function (scope, elem, attrs) {
+      elem.bind('keydown', function (e) {
+        if (e.keyCode == 13) {
+          try {
+            elem[0].nextElementSibling.children[1].focus();
+          } catch (err) {
+            try {
+              elem[0].parentElement.nextElementSibling.children[0].children[1].focus();
+            } catch (err) {
+
+            }
+          }
+        }
+      });
+    }
+  }
+})
