@@ -11,10 +11,14 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate', 'ngMaterial'])
   self.recipe = {};
   self.showRecipe = true;
   self.showUpdateRecipe = false;
+  self.overlay = false;
   self.recipes = [];
   self.menu = [];
   self.shoppingList = [];
-
+  self.recipeFilter;
+  self.returnToRecipes = function() {
+    self.tabIndex = 0;
+  }
   // used to retrive all recipes titles from index.txt file
   var getRecipesTitles = function() {
     // get recipes titles
@@ -27,12 +31,15 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate', 'ngMaterial'])
   }
 
   // used to retrive whole recipe
-  self.getRecipe = function(recipe) {
-    self.recipe = self.recipes[recipe];
+  self.getRecipe = function(recipeId, index) {
+    self.recipe = self.recipes[recipeId];
+    //console.log(recipeId);
+    self.selectedIndex = index;
   }
 
   self.addRecipe = function() {
     self.showRecipe = !self.showRecipe;
+    self.overlay = !self.overlay;
 
     self.recipe = {
       name: '',
@@ -40,6 +47,14 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate', 'ngMaterial'])
     };
   }
 
+  self.showOverlay = function(show) {
+    if (show) {
+      self.overlay = true;
+    }
+    else {
+      self.overlay = false;
+    }
+  }
   self.changeRecipe = function() {
     self.showUpdateRecipe = true;
     self.showRecipe = false;
@@ -59,11 +74,24 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate', 'ngMaterial'])
 
   self.saveRecipe = function() {
     if (self.recipe.name === '') {  // don't save if not title given
-      errorDialog('Title required', 'Title field cannot be empty', 'error', 'OK');
+      errorDialog('Recipe name required', 'Recipe name field cannot be empty', 'error', 'OK');
       return;
     }
 
-    if (self.recipe.ingridients.length == 0) {
+    // capitalize first characters
+    self.recipe._id = self.recipes.length;
+    self.recipe.name = self.recipe.name.capitalize();
+    for (var i = 0; i < self.recipe.ingridients.length;) { // increment only if not empty
+      if (self.recipe.ingridients[i].name == '' || self.recipe.ingridients[i].value == '') {
+        self.recipe.ingridients.splice(i, 1);
+      }
+      else {
+        self.recipe.ingridients[i].name = self.recipe.ingridients[i].name.capitalize();
+        i++;
+      }
+    }
+
+    if (self.recipe.ingridients.length == 0 || (self.recipe.ingridients.length == 1 && self.recipe.ingridients[0].name == '')) {
       /*var confirm = $mdDialog.confirm()
         .title('No ingridients added')
         .textContent('You are going to save recipe without any ingridient added.\nWant to continue?')
@@ -81,12 +109,6 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate', 'ngMaterial'])
       return;
     }
 
-    // capitalize first characters
-    self.recipe.name = self.recipe.name.capitalize();
-    for (var i = 0; i < self.recipe.ingridients.length; i++) {
-      self.recipe.ingridients[i].name = self.recipe.ingridients[i].name.capitalize();
-    }
-
     for (var i = 0; i < self.recipes.length; i++) {
       if (self.recipe.name == self.recipes[i].name) {
         var errorMsg = 'Recipe ' + self.recipe.name + ' already exists!\nPlease choose different name before continue.'
@@ -97,17 +119,18 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate', 'ngMaterial'])
 
     self.recipes.push(self.recipe); // add recipe to recipes array
 
-
     var result = angular.toJson(self.recipes, 2); // change JSON into string
 
     fileReader.writeFile('recipes.json', result).then(function(res) {
-      console.log(res);
+      //console.log(res);
       self.showRecipe = true;
       self.showUpdateRecipe = false;
     }, function(reason) {
       errorDialog('Saving error', 'The recipe can not be saved', 'error', 'OK');
       console.log(reason);
     });
+
+    self.showOverlay(false);
   }
 
   self.updateRecipe = function() {
@@ -119,6 +142,11 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate', 'ngMaterial'])
   self.removeRecipe = function(recipe) {
     var index = self.recipes.indexOf(recipe); // return index of recipe to remove
     self.recipes.splice(index, 1);
+
+    // update recipe _id
+    for (var i = index; i < self.recipes.length; i++) {
+      self.recipes[i]._id = parseInt(self.recipes[i]._id) - 1;
+    }
 
     var result = angular.toJson(self.recipes, 2); // change JSON into string
 
@@ -170,9 +198,10 @@ angular.module('main', ['routes', 'fileService', 'ngAnimate', 'ngMaterial'])
   getRecipesTitles();
 })
 
+// theme
 .config(function($mdThemingProvider) {
     $mdThemingProvider.theme('myTheme')
-        .primaryPalette('blue')
+        .primaryPalette('light-green')
         .accentPalette('lime')
         .warnPalette('red');
     $mdThemingProvider.setDefaultTheme('myTheme');

@@ -1,48 +1,12 @@
 [
   {
-    "name": "Omlet",
+    "name": "Test",
     "ingridients": [
       {
-        "name": "Jajka",
-        "value": "2"
-      },
-      {
-        "name": "Mleko",
-        "value": "10ml"
-      },
-      {
-        "name": "Sol",
-        "value": "szczypta"
-      },
-      {
-        "name": "Pieprz",
-        "value": "szczypta"
+        "name": "Dsds",
+        "value": "sdsd"
       }
-    ]
-  },
-  {
-    "name": "Jajecznica",
-    "ingridients": [
-      {
-        "name": "Jajka",
-        "value": "2szt"
-      },
-      {
-        "name": "Sol",
-        "value": "szczypta"
-      },
-      {
-        "name": "Pieprz",
-        "value": "2 szczypty"
-      },
-      {
-        "name": "Cebula",
-        "value": "100g"
-      },
-      {
-        "name": "Kielbasa",
-        "value": "200g"
-      }
-    ]
+    ],
+    "_id": 0
   }
 ]
